@@ -290,6 +290,8 @@ class RejectRecordView(APIView):
 class DashboardStatsView(APIView):
     def get(self, request):
         from django.db.models import Sum, Count
+        from django.db.models.functions import Coalesce
+        from django.db.models import FloatField, Value
 
         total = EmissionRecord.objects.count()
         pending = EmissionRecord.objects.filter(review_status='pending').count()
@@ -298,12 +300,20 @@ class DashboardStatsView(APIView):
         rejected = EmissionRecord.objects.filter(review_status='rejected').count()
 
         by_scope = EmissionRecord.objects.values('scope').annotate(
-            total_kgco2e=Sum('normalized_kgco2e'),
+            total_kgco2e=Coalesce(
+                Sum('normalized_kgco2e'),
+                Value(0.0),
+                output_field=FloatField()
+            ),
             count=Count('id')
         )
 
         by_source = EmissionRecord.objects.values('batch__source_type').annotate(
-            total_kgco2e=Sum('normalized_kgco2e'),
+            total_kgco2e=Coalesce(
+                Sum('normalized_kgco2e'),
+                Value(0.0),
+                output_field=FloatField()
+            ),
             count=Count('id')
         )
 
@@ -316,8 +326,8 @@ class DashboardStatsView(APIView):
             'by_scope': list(by_scope),
             'by_source': list(by_source),
         })
-
-
+    
+    
 class AuditLogView(APIView):
     def get(self, request, pk):
         logs = AuditLog.objects.filter(emission_record_id=pk).order_by('-changed_at')
