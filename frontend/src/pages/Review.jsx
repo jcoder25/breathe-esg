@@ -7,13 +7,23 @@ export default function Review() {
   const [filters, setFilters] = useState({ status: '', scope: '', source_type: '' })
   const [auditLogs, setAuditLogs] = useState([])
 
+
   const fetchRecords = () => {
-    const params = new URLSearchParams()
-    if (filters.status) params.append('status', filters.status)
-    if (filters.scope) params.append('scope', filters.scope)
-    if (filters.source_type) params.append('source_type', filters.source_type)
-    api.get(`/api/emissions/?${params}`).then(r => setRecords(r.data))
-  }
+  const params = new URLSearchParams()
+
+  if (filters.status) params.append('status', filters.status)
+  if (filters.scope) params.append('scope', filters.scope)
+  if (filters.source_type) params.append('source_type', filters.source_type)
+
+  api.get(`/api/emissions/?${params}`)
+    .then(r => {
+      setRecords(Array.isArray(r.data) ? r.data : [])
+    })
+    .catch(err => {
+      console.error(err)
+      setRecords([])
+    })
+}
 
   useEffect(() => { fetchRecords() }, [filters])
 
@@ -84,8 +94,8 @@ export default function Review() {
             {records.length === 0 && (
               <tr><td colSpan={8} style={{ textAlign: 'center', color: '#999', padding: '2rem' }}>No records found</td></tr>
             )}
-            {records.map(r => (
-              <tr key={r.id}>
+                {(records || []).map(r => (          
+                <tr key={r.id}>
                 <td>#{r.id}</td>
                 <td>{r.category?.replace(/_/g, ' ')}</td>
                 <td>Scope {r.scope}</td>
