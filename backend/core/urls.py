@@ -8,6 +8,18 @@ from ingestion.views import (
     DashboardStatsView, AuditLogView,
 )
 
+from django.http import HttpResponse
+from django.contrib import admin
+from django.urls import path
+
+def home(request):
+    return HttpResponse("Breathe ESG Backend is live 🚀")
+
+urlpatterns = [
+    path('', home),
+    path('admin/', admin.site.urls),
+]
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
