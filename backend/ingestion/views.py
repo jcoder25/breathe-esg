@@ -286,48 +286,57 @@ class RejectRecordView(APIView):
 
         return Response({'message': 'Record rejected'})
 
-
 class DashboardStatsView(APIView):
     def get(self, request):
-        from django.db.models import Sum, Count
-        from django.db.models.functions import Coalesce
-        from django.db.models import FloatField, Value
+        try:
+            from django.db.models import Sum, Count
+            from django.db.models.functions import Coalesce
+            from django.db.models import FloatField, Value
 
-        total = EmissionRecord.objects.count()
-        pending = EmissionRecord.objects.filter(review_status='pending').count()
-        flagged = EmissionRecord.objects.filter(review_status='flagged').count()
-        approved = EmissionRecord.objects.filter(review_status='approved').count()
-        rejected = EmissionRecord.objects.filter(review_status='rejected').count()
+            total = EmissionRecord.objects.count()
+            pending = EmissionRecord.objects.filter(review_status='pending').count()
+            flagged = EmissionRecord.objects.filter(review_status='flagged').count()
+            approved = EmissionRecord.objects.filter(review_status='approved').count()
+            rejected = EmissionRecord.objects.filter(review_status='rejected').count()
 
-        by_scope = EmissionRecord.objects.values('scope').annotate(
-            total_kgco2e=Coalesce(
-                Sum('normalized_kgco2e'),
-                Value(0.0),
-                output_field=FloatField()
-            ),
-            count=Count('id')
-        )
+            by_scope = list(
+                EmissionRecord.objects.values('scope').annotate(
+                    total_kgco2e=Coalesce(
+                        Sum('normalized_kgco2e'),
+                        Value(0.0),
+                        output_field=FloatField()
+                    ),
+                    count=Count('id')
+                )
+            )
 
-        by_source = EmissionRecord.objects.values('batch__source_type').annotate(
-            total_kgco2e=Coalesce(
-                Sum('normalized_kgco2e'),
-                Value(0.0),
-                output_field=FloatField()
-            ),
-            count=Count('id')
-        )
+            by_source = list(
+                EmissionRecord.objects.values('batch__source_type').annotate(
+                    total_kgco2e=Coalesce(
+                        Sum('normalized_kgco2e'),
+                        Value(0.0),
+                        output_field=FloatField()
+                    ),
+                    count=Count('id')
+                )
+            )
 
-        return Response({
-            'total': total,
-            'pending': pending,
-            'flagged': flagged,
-            'approved': approved,
-            'rejected': rejected,
-            'by_scope': list(by_scope),
-            'by_source': list(by_source),
-        })
-    
-    
+            return Response({
+                'total': total,
+                'pending': pending,
+                'flagged': flagged,
+                'approved': approved,
+                'rejected': rejected,
+                'by_scope': by_scope,
+                'by_source': by_source,
+            })
+
+        except Exception as e:
+            return Response({
+                "error": str(e)
+            }, status=500)
+        
+        
 class AuditLogView(APIView):
     def get(self, request, pk):
         logs = AuditLog.objects.filter(emission_record_id=pk).order_by('-changed_at')
