@@ -1,0 +1,11 @@
+TRAVELER,TRAVEL_TYPE,ORIGIN,DESTINATION,TRAVEL_DATE,NIGHTS,DISTANCE_KM
+Rahul Sharma,flight,DEL,BOM,2024-01-10,,
+Priya Patel,flight,BOM,LHR,2024-01-15,,
+Amit Singh,hotel,,Mumbai,2024-01-18,3,
+Rahul Sharma,flight,BOM,DEL,2024-01-20,,
+Neha Gupta,ground,Delhi,Gurgaon,2024-02-05,,45
+Priya Patel,flight,LHR,DEL,2024-02-10,,
+Amit Singh,flight,DEL,DXB,2024-02-14,,
+Vikram Nair,hotel,,London,2024-02-18,5,
+Neha Gupta,flight,DEL,BLR,2024-03-01,,
+Vikram Nair,ground,Mumbai,Pune,2024-03-10,,148
