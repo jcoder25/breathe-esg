@@ -141,6 +141,24 @@ Detailed rationale in:
 
 ---
 
+## Sample Test Data
+
+Sample CSV files are included for evaluator testing.
+
+Location:
+
+sample-data/
+
+Files:
+
+- sap_sample.csv
+- utility_sample.csv
+- travel_sample.csv
+
+These files represent realistic enterprise onboarding exports and can be uploaded directly through the deployed application to test ingestion, normalization, dashboard aggregation, and analyst review workflow.
+
+
+
 ## Local Setup
 
 ### Backend
