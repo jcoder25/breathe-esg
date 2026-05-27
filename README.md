@@ -22,7 +22,7 @@ https://breathe-esg-e40y.onrender.com/admin/
 ## Demo Credentials
 
 **Username:** admin  
-**Password:** [YOUR PASSWORD]
+**Password:** admin123
 
 ---
 
