@@ -68,7 +68,7 @@ export default function Login({ setUser }) {
   style={{
     display: "inline-block",
     marginTop: "12px",
-    background: rgb(225,225,225),
+    background: "#cccccc",
     color: "#ff0000",
     textDecoration: "none",
     padding: "12px 24px",
