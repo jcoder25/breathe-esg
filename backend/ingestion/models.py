@@ -141,3 +141,4 @@ class AuditLog(models.Model):
 
     def __str__(self):
         return f"AuditLog: {self.field_name} changed at {self.changed_at}"
+    
