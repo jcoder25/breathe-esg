@@ -54,21 +54,32 @@ export default function Login({ setUser }) {
   }}
 >
   <p><strong>Built by:</strong> Jashan Jindal</p>
-  <p>Email: jashanjindal25@gmail.com</p>
+  <p><strong>Email: jashanjindal25@gmail.com </strong></p>
 
   <a
     href="https://digitalheroesco.com"
     target="_blank"
     rel="noopener noreferrer"
   >
-    <button
-      style={{
-        marginTop: '10px',
-        cursor: 'pointer'
-      }}
-    >
-      Built for Digital Heroes
-    </button>
+    <a
+  href="https://digitalheroesco.com"
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{
+    display: "inline-block",
+    marginTop: "12px",
+    background: "#181834",
+    color: "#ff0000",
+    textDecoration: "none",
+    padding: "12px 24px",
+    borderRadius: "8px",
+    fontWeight: "600",
+    width: "220px",
+    textAlign: "center"
+  }}
+>
+  Built for Digital Heroes
+</a>
   </a>
 </div>
       </div>
