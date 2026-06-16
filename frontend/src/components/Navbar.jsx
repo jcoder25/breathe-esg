@@ -14,7 +14,7 @@ export default function Navbar({ user, setUser }) {
     <nav className="navbar">
       <div>
         <span style={{ fontWeight: 700, fontSize: '1.1rem', marginRight: '2rem' }}>
-          🌿 Breathe ESG
+          Digital Heroes
         </span>
         <Link to="/">Dashboard</Link>
         <Link to="/upload">Upload Data</Link>

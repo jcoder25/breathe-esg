@@ -27,8 +27,8 @@ export default function Login({ setUser }) {
   return (
     <div className="login-wrap">
       <div className="login-card">
-        <h2>🌿 Breathe ESG</h2>
-        <p>Emissions Data Review Platform</p>
+        <h2>Digital Heroes</h2>
+        <p>Built for Digital Heroes | Emissions Data Review Platform</p>
         {error && <div className="error">{error}</div>}
         <input
           placeholder="Username"
@@ -45,6 +45,32 @@ export default function Login({ setUser }) {
         <button className="btn btn-primary" style={{ width: '100%' }} onClick={handleLogin}>
           Login
         </button>
+
+        <div
+  style={{
+    marginTop: '20px',
+    textAlign: 'center',
+    fontSize: '14px'
+  }}
+>
+  <p><strong>Built by:</strong> Jashan Jindal</p>
+  <p>Email: jashanjindal25@gmail.com</p>
+
+  <a
+    href="https://digitalheroesco.com"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <button
+      style={{
+        marginTop: '10px',
+        cursor: 'pointer'
+      }}
+    >
+      Built for Digital Heroes
+    </button>
+  </a>
+</div>
       </div>
     </div>
   )
